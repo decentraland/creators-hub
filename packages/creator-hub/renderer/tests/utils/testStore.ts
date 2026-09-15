@@ -14,6 +14,7 @@ import * as settings from '../../src/modules/store/settings';
 import * as defaultEditor from '../../src/modules/store/defaultEditor';
 import * as profiles from '../../src/modules/store/profiles';
 import * as placeAnalytics from '../../src/modules/store/placeAnalytics';
+import * as optimizer from '../../src/modules/store/optimizer';
 
 /** Mirrors the app's root reducer, so a component under test finds every slice. */
 export const createTestStore = () =>
@@ -34,6 +35,7 @@ export const createTestStore = () =>
       defaultEditor: defaultEditor.reducer,
       profiles: profiles.reducer,
       placeAnalytics: placeAnalytics.reducer,
+      optimizer: optimizer.reducer,
     },
     middleware: getDefaultMiddleware =>
       getDefaultMiddleware({

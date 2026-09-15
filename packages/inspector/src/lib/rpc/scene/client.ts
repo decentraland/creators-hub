@@ -10,6 +10,7 @@ enum Method {
   GET_FEATURE_FLAGS = 'get_feature_flags',
   UPDATE_SDK = 'update_sdk',
   SET_UI_DESIGNER_MODE = 'set_ui_designer_mode',
+  OPTIMIZE_SCENE = 'optimize_scene',
 }
 
 type Params = {
@@ -20,6 +21,7 @@ type Params = {
   [Method.GET_FEATURE_FLAGS]: Record<string, never>;
   [Method.UPDATE_SDK]: Record<string, never>;
   [Method.SET_UI_DESIGNER_MODE]: { open: boolean };
+  [Method.OPTIMIZE_SCENE]: Record<string, never>;
 };
 
 type Result = {
@@ -33,6 +35,7 @@ type Result = {
   [Method.GET_FEATURE_FLAGS]: { flags: Record<string, boolean> };
   [Method.UPDATE_SDK]: { ok: boolean };
   [Method.SET_UI_DESIGNER_MODE]: void;
+  [Method.OPTIMIZE_SCENE]: void;
 };
 
 export class SceneClient extends RPC<Method, Params, Result> {
@@ -73,5 +76,9 @@ export class SceneClient extends RPC<Method, Params, Result> {
 
   setUiDesignerMode = (open: boolean) => {
     return this.request('set_ui_designer_mode', { open });
+  };
+
+  optimizeScene = () => {
+    return this.request('optimize_scene', {});
   };
 }

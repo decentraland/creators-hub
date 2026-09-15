@@ -10,6 +10,7 @@ import { store } from '../../store';
 import { actions as snackbarActions } from '../../store/snackbar';
 import { createGenericNotification } from '../../store/snackbar/utils';
 import { actions as workspaceActions } from '../../store/workspace';
+import { actions as optimizerActions } from '../../store/optimizer';
 
 type NotificationRequest = {
   severity: Severity;
@@ -28,6 +29,7 @@ export enum Method {
   GET_FEATURE_FLAGS = 'get_feature_flags',
   UPDATE_SDK = 'update_sdk',
   SET_UI_DESIGNER_MODE = 'set_ui_designer_mode',
+  OPTIMIZE_SCENE = 'optimize_scene',
 }
 
 export type Params = {
@@ -38,6 +40,7 @@ export type Params = {
   [Method.GET_FEATURE_FLAGS]: Record<string, never>;
   [Method.UPDATE_SDK]: Record<string, never>;
   [Method.SET_UI_DESIGNER_MODE]: { open: boolean };
+  [Method.OPTIMIZE_SCENE]: Record<string, never>;
 };
 
 export type Result = {
@@ -51,6 +54,7 @@ export type Result = {
   [Method.GET_FEATURE_FLAGS]: { flags: Record<string, boolean> };
   [Method.UPDATE_SDK]: { ok: boolean };
   [Method.SET_UI_DESIGNER_MODE]: void;
+  [Method.OPTIMIZE_SCENE]: void;
 };
 
 export class SceneRpcServer extends RPC<Method, Params, Result> {
@@ -116,6 +120,12 @@ export class SceneRpcServer extends RPC<Method, Params, Result> {
         console.error('[SceneRpc] Failed to update the scene SDK', error);
         return { ok: false };
       }
+    });
+
+    // Opens the model-optimization modal (rendered by EditorPage) for this scene. The
+    // heavy work runs in the CH main process — the inspector only triggers the UI here.
+    this.handle('optimize_scene', async () => {
+      store.dispatch(optimizerActions.open());
     });
 
     this.handle('set_ui_designer_mode', async ({ open }) => {

@@ -66,6 +66,9 @@ export type AppSettings = {
   // overrides are always stripped regardless (they could redirect the OAuth token).
   useApiKeyFromEnv: boolean;
   guiEditor: boolean;
+  // The creator ticked "don't show this again" on the Optimize tools disclosure. Per machine;
+  // the install screen still says when tools are being downloaded.
+  optimizerConsentAcknowledged?: boolean;
 };
 
 export interface ReleaseNotes {

@@ -7,4 +7,6 @@ export type ButtonProps = DclButtonProps & {
 
 export type GroupProps = ButtonProps & {
   extra: React.ReactNode;
+  tooltip?: string;
+  extraTooltip?: string;
 };

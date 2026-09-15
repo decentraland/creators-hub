@@ -67,10 +67,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
 }
 
-.Editor .Header .actions > *:not(:last-child) {
-  margin-right: 6px;
+/* the shared Button sheet adds margin-left between adjacent buttons/groups; the title bar spaces
+   its controls with the flex gap above, so that margin would double up between two buttons */
+.Editor .Header .actions .MuiButton-root + .MuiButton-root,
+.Editor .Header .actions .MuiButton-root + .MuiButtonGroup-root,
+.Editor .Header .actions .MuiButtonGroup-root + .MuiButton-root,
+.Editor .Header .actions .MuiButtonGroup-root + .MuiButtonGroup-root {
+  margin-left: 0;
+}
+
+/* flat title bar: the ui2 theme raises a hovered contained button with an outset shadow (the
+   grouped ones already suppress it), which reads as the button growing next to its neighbours */
+.Editor .Header .actions .Button.MuiButton-root,
+.Editor .Header .actions .Button.MuiButton-root:hover {
+  box-shadow: none !important;
 }
 
 .Editor .Header .actions .MuiButtonGroup-root {
@@ -105,6 +118,21 @@
 
 .Editor .Header .actions .ai-toggle.active:hover {
   background-color: var(--ai-selected-hover);
+}
+
+/* Title-bar design: Optimize / Code / Preview are square icon-only buttons whose label lives
+   in the tooltip. The icon is the button's content (not a startIcon) so MUI adds no gap. */
+.Editor .Header .actions .Button.icon-only,
+.Editor .Header .actions .Button.extra-button {
+  width: 34px;
+  min-width: 34px !important;
+  height: 34px;
+  padding: 0 !important;
+}
+
+.Editor .Header .actions .Button.icon-only svg {
+  width: 20px;
+  height: 20px;
 }
 
 /* while optimizing, the Preview button and its dropdown look disabled (same opacity:0.5 the

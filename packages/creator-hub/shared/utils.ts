@@ -37,6 +37,19 @@ export function isValidFolderName(name: string): boolean {
 }
 
 /**
+ * Human-readable size. Negative values (a run that grew the scene) keep their sign instead of
+ * feeding `Math.log` a negative and printing "NaN undefined"; NaN/undefined read as 0.
+ */
+export function formatBytes(bytes: number): string {
+  if (!bytes || !Number.isFinite(bytes)) return '0 B';
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const magnitude = Math.abs(bytes);
+  const i = Math.min(units.length - 1, Math.floor(Math.log(magnitude) / Math.log(1024)));
+  const value = (magnitude / 1024 ** i).toFixed(i === 0 ? 0 : 1);
+  return `${bytes < 0 ? '-' : ''}${value} ${units[i]}`;
+}
+
+/**
  * Returns the last segment of a file system path (POSIX or Windows), i.e. the file/folder name.
  * Unlike `node:path`'s `basename`, this is safe to use from the renderer, which has no access to
  * Node built-ins.

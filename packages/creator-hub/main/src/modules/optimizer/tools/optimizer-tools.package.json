@@ -1,0 +1,13 @@
+{
+  "name": "creator-hub-optimizer-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Pinned toolchain the Creator Hub optimizer downloads on first use. Versions match the upstream releases linked from the consent screen.",
+  "dependencies": {
+    "@gltf-transform/core": "4.5.0",
+    "@gltf-transform/extensions": "4.5.0",
+    "@gltf-transform/functions": "4.5.0",
+    "meshoptimizer": "0.22.0",
+    "sharp": "0.34.5"
+  }
+}

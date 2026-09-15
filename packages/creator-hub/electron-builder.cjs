@@ -38,6 +38,8 @@ const config = {
   ],
   // node-pty ships N-API .node prebuilds + a spawn-helper binary that must run from disk,
   // not from inside the asar (#1531 drives the CLI login through a PTY).
+  // The optimizer toolchain (sharp, gltf-transform, …) is NOT packaged: it is downloaded on
+  // first use into userData (main/src/modules/optimizer/tools.ts).
   asarUnpack: ['node_modules/npm/**/*', 'node_modules/node-pty/**/*'],
   extraResources: [
     {

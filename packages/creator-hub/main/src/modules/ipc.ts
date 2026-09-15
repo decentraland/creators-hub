@@ -24,6 +24,7 @@ import {
   resolveUserPrompt,
   revertTurn,
 } from './scene-mcp';
+import * as optimizer from './optimizer';
 
 interface InitIpcOptions {
   beforeQuitCleanup: () => Promise<void>;
@@ -166,4 +167,10 @@ export function initIpc({ beforeQuitCleanup }: InitIpcOptions) {
   handle('ai.isWindowOpen', async () => aiWindow.isAiWindowOpen());
   handle('ai.mirrorPush', (_event, state) => aiWindow.pushMirrorState(state));
   handle('ai.remoteCommand', (_event, command) => aiWindow.forwardRemoteCommand(command));
+  // optimizer (model/texture optimization)
+  handle('optimizer.scan', (_event, path) => optimizer.scan(path));
+  handle('optimizer.run', (_event, path, options) => optimizer.run(path, options));
+  handle('optimizer.revert', (_event, path) => optimizer.revert(path));
+  handle('optimizer.tools', () => optimizer.tools());
+  handle('optimizer.installTools', (_event, path) => optimizer.installTools(path));
 }

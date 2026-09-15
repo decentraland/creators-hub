@@ -50,6 +50,7 @@
     "header": {
       "actions": {
         "code": "Código",
+        "optimize": "Optimizar",
         "preview": "Previsualizar",
         "optimizing": "Optimizando",
         "cancel_optimizing": "Cancelar la optimización",
@@ -69,11 +70,12 @@
           "landscape_terrain_disabled_by_scene": "El terreno panorámico está oculto por la configuración de esta escena",
           "multi_instance": "Vista previa multi-instancia",
           "mcp": "Habilitar servidor MCP",
-          "optimized_assets": "Optimizar assets",
-          "optimized_assets_tooltip": "Previsualiza la escena con assets optimizados, igual que se ve en producción",
+          "optimized_assets": "Comprimir",
+          "optimized_assets_tooltip": "Previsualiza la escena con los assets comprimidos igual que en producción",
           "mobile_preview": "Mostrar código QR para móvil"
         },
         "publish_options": {
+          "title": "Opciones de Publicación",
           "publish_scene": "Publicar Escena",
           "republish_to_world": "Republicar en {name}",
           "republish_to_land": "Republicar en {coords}"
@@ -172,6 +174,102 @@
     "badges": {
       "published": "Publicado"
     }
+  },
+  "optimize": {
+    "title": "Optimizar modelos",
+    "subtitle": "Reduce el tamaño de los GLB de tu escena comprimiendo y deduplicando texturas y limpiando las mallas. Se guarda una copia de los originales para poder revertir.",
+    "docs_link": "Cómo funciona cada opción",
+    "consent": {
+      "blurb": "La optimización se ejecuta por completo en tu equipo con herramientas de código abierto. Se descargan de npm la primera vez que continúas, fijadas a versiones concretas, y se guardan en la carpeta de datos de la app. Tus modelos nunca salen de tu computadora.",
+      "show_tools": "Ver las {count} herramientas de código abierto",
+      "hide_tools": "Ocultar la lista de herramientas",
+      "dont_show_again": "No volver a mostrar",
+      "npm": "npm",
+      "source": "Código",
+      "note": "Tus modelos originales se respaldan y pueden revertirse en cualquier momento.",
+      "download": "Se descargarán unos {size} MB ahora.",
+      "continue": "Continuar",
+      "cancel": "Cancelar",
+      "purpose": {
+        "sharp": "Redimensiona, recodifica y comprime texturas sin pérdida.",
+        "gltf": "Lee y escribe GLBs; ejecuta la limpieza de mallas.",
+        "meshopt": "Reordenado de mallas y el códec Meshopt."
+      }
+    },
+    "tools": {
+      "installing_blurb": "Preparando las herramientas de optimización. Esto ocurre una sola vez.",
+      "installing": "Descargando herramientas de optimización…",
+      "failed": "No se pudieron descargar las herramientas de optimización: {message}",
+      "retry": "Reintentar"
+    },
+    "select_project": "Selecciona una escena",
+    "no_projects": "No se encontraron escenas. Crea o importa una escena primero.",
+    "scan": {
+      "glbs": "{count} modelos",
+      "size": "Tamaño total: {size} (modelos {models} + texturas {textures})",
+      "textures": "{embedded} texturas embebidas · {external} texturas externas",
+      "last_optimized": "Optimizado el {date} · puedes volver a los originales",
+      "empty": "Esta escena no tiene modelos GLB para optimizar."
+    },
+    "options": {
+      "title": "Optimizaciones",
+      "mesh": {
+        "title": "Mallas",
+        "enabled": "Optimizar mallas (soldar, reordenar, limpiar)",
+        "enabled_tip": "Limpieza sin pérdida: fusiona vértices duplicados (weld), reordena índices para mejor uso de la caché GPU, elimina datos sin usar o duplicados y convierte texturas de color plano en colores de material. El resultado carga en todos los runtimes."
+      },
+      "textures": {
+        "title": "Texturas",
+        "compress": "Comprimir y redimensionar texturas",
+        "compress_tip": "Redimensiona cada textura a su tamaño máximo por tipo y la vuelve a codificar. PNG se recomprime sin pérdida; JPEG/WebP usan el control de Calidad.",
+        "dedup": "Eliminar texturas duplicadas",
+        "dedup_tip": "Encuentra texturas con píxeles idénticos (SHA-256) y hace que todos los modelos apunten a una única copia compartida. El mayor ahorro cuando la misma textura se reutiliza en muchos modelos.",
+        "externalize": "Extraer texturas incrustadas a archivos",
+        "externalize_tip": "Saca las texturas del GLB a archivos compartidos en assets/optimized-textures/, para que una textura compartida se descargue una sola vez. Necesario para la deduplicación entre modelos; estos archivos se despliegan con tu escena.",
+        "format": "Formato",
+        "format_tip": "Formato de imagen de salida. PNG es sin pérdida (recomendado). JPEG y WebP son más pequeños pero con pérdida y usan el control de Calidad.",
+        "quality": "Calidad",
+        "quality_tip": "Calidad de codificación para JPEG/WebP (1–100). Más alto conserva más detalle con mayor tamaño. Se ignora para PNG.",
+        "denoise": "Reducción de ruido",
+        "sizes": "Tamaños máximos de textura (px)",
+        "sizes_tip": "Altura máxima en píxeles por tipo de textura; lo más grande se reduce proporcionalmente. El color base y los normal maps suelen necesitar más resolución que ORM o emisivo.",
+        "baseColor": "Color base",
+        "normal": "Normal",
+        "orm": "ORM",
+        "emissive": "Emisivo",
+        "other": "Otras"
+      }
+    },
+    "run": "Optimizar",
+    "run_again": "Optimizar de nuevo",
+    "done": "Listo",
+    "running": "Optimizando…",
+    "revert": "Revertir a originales",
+    "reverting": "Restaurando originales…",
+    "revert_error": "No se pudieron restaurar los originales: {message}",
+    "result": {
+      "title": "Listo",
+      "saved": "Ahorrado {saved} ({percent}%)",
+      "before_after": "{before} → {after} (modelos + texturas)",
+      "glbs_changed": "{count} modelos actualizados",
+      "textures_extracted": "{count} texturas extraídas",
+      "textures_deduped": "{count} duplicados eliminados",
+      "textures_removed": "{count} texturas reemplazadas eliminadas ({bytes})",
+      "unchanged_skipped": "{unchanged} sin cambios · {skipped} omitidos",
+      "failed": "{count} modelos fallaron — mira el detalle por modelo",
+      "ignored_files": "{count} texturas extraídas coinciden con un patrón de tu .dclignore y NO se publicarán — edita el patrón o el modelo cargará sin ellas: {files}",
+      "up_to_date": "{count} ya optimizados, sin cambios",
+      "show_details": "Ver detalles por modelo",
+      "hide_details": "Ocultar detalles por modelo",
+      "status": {
+        "optimized": "optimizado",
+        "unchanged": "sin cambios",
+        "skipped": "omitido",
+        "up_to_date": "ya optimizado",
+        "failed": "falló"
+      }
+    },
+    "error": "La optimización falló: {message}"
   },
   "navbar": {
     "menu": {

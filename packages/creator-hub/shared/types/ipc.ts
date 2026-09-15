@@ -16,6 +16,12 @@ import type {
   AiRemoteCommand,
   AiSendParams,
 } from './ai';
+import type {
+  OptimizeOptions,
+  OptimizeResult,
+  OptimizeScanResult,
+  OptimizeToolsInfo,
+} from './optimizer';
 
 export type IpcResult<T> = {
   success: true;
@@ -142,6 +148,11 @@ export interface Ipc {
   'electron.openExternal': (url: string) => Promise<void>;
   'electron.copyToClipboard': (text: string) => Promise<void>;
   'oxc.parse': (filename: string, source: string) => Promise<OxcParseResult>;
+  'optimizer.scan': (path: string) => Promise<OptimizeScanResult>;
+  'optimizer.run': (path: string, options: OptimizeOptions) => Promise<OptimizeResult>;
+  'optimizer.revert': (path: string) => Promise<{ restored: number }>;
+  'optimizer.tools': () => Promise<OptimizeToolsInfo>;
+  'optimizer.installTools': (path: string) => Promise<OptimizeToolsInfo>;
   'metrics.request': (request: MetricsRequest) => Promise<MetricsResponse>;
   'inspector.start': () => Promise<number>;
   'inspector.attachSceneDebugger': (path: string) => Promise<string>;

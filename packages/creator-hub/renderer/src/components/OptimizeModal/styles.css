@@ -1,0 +1,319 @@
+.OptimizeModal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.OptimizeModal .subtitle {
+  opacity: 0.7;
+  margin-top: -8px;
+}
+
+.OptimizeModal.consent .tool-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.OptimizeModal.consent .tool-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.OptimizeModal.consent .tool-list li:last-child {
+  border-bottom: none;
+}
+
+.OptimizeModal.consent .tool-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.OptimizeModal.consent .tool-name {
+  font-weight: 600;
+}
+
+.OptimizeModal.consent .tool-version {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.OptimizeModal.consent .tool-links {
+  display: inline-flex;
+  gap: 14px;
+  flex: none;
+}
+
+.OptimizeModal.consent .tool-purpose {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.OptimizeModal.consent .consent-note {
+  opacity: 0.6;
+}
+
+.OptimizeModal.consent .dont-show-again {
+  margin: 0 0 0 -6px;
+  opacity: 0.85;
+}
+
+.OptimizeModal .summary .last-optimized {
+  flex-basis: 100%;
+  opacity: 0.7;
+}
+
+.OptimizeModal .docs-link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: -6px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  color: var(--dcl-primary, #ff2d55);
+}
+
+.OptimizeModal .docs-link:hover {
+  text-decoration: underline;
+}
+
+.OptimizeModal .docs-link svg {
+  font-size: 15px;
+}
+
+.OptimizeModal .label-with-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.OptimizeModal .info-tip {
+  opacity: 0.45;
+  cursor: help;
+  font-size: 16px;
+}
+
+.OptimizeModal .info-tip:hover,
+.OptimizeModal .info-tip:focus-visible {
+  opacity: 0.8;
+}
+
+.OptimizeModal .summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.OptimizeModal .options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.OptimizeModal .options .MuiTypography-h6 {
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+
+.OptimizeModal .slider {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 320px;
+  padding-left: 12px;
+}
+
+.OptimizeModal .row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.OptimizeModal .sizes-title {
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+.OptimizeModal .sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.OptimizeModal .sizes .MuiTextField-root {
+  width: 110px;
+}
+
+.OptimizeModal .actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.OptimizeModal .progress {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.OptimizeModal .progress-message {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.OptimizeModal .result {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.OptimizeModal .result .saved {
+  font-weight: 600;
+}
+
+.OptimizeModal .result .muted {
+  opacity: 0.6;
+}
+
+.OptimizeModal .result .failed {
+  color: var(--error, #ff5b5b);
+  font-weight: 600;
+}
+
+.OptimizeModal .disclosure {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 4px 0 0 -4px;
+  padding: 2px 4px;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  color: inherit;
+  opacity: 0.8;
+}
+
+.OptimizeModal .disclosure:hover,
+.OptimizeModal .disclosure:focus-visible {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.OptimizeModal .disclosure svg {
+  transition: transform 150ms ease;
+}
+
+.OptimizeModal .disclosure.open svg {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .OptimizeModal .disclosure svg {
+    transition: none;
+  }
+}
+
+.OptimizeModal .file-details {
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+}
+
+.OptimizeModal .file-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 2px;
+  font-size: 12.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.OptimizeModal .file-row:last-child {
+  border-bottom: none;
+}
+
+.OptimizeModal .file-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0.85;
+  direction: rtl;
+  text-align: left;
+}
+
+.OptimizeModal .file-size {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.OptimizeModal .file-pct {
+  color: var(--ok, #35c88a);
+  font-style: normal;
+}
+
+.OptimizeModal .file-status {
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.OptimizeModal .file-status.failed {
+  color: var(--error, #ff5b5b);
+  opacity: 1;
+}
+
+.OptimizeModal .file-badges {
+  display: inline-flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.OptimizeModal .file-badges em {
+  font-style: normal;
+  opacity: 0.6;
+  font-size: 11.5px;
+}
+
+.OptimizeModal .error {
+  color: var(--error, #ff5b5b);
+}
+
+.OptimizeModal .warning {
+  color: var(--warning, #f5a623);
+  padding-left: 12px;
+  max-width: 480px;
+}
+
+.OptimizeModal .empty {
+  opacity: 0.7;
+}

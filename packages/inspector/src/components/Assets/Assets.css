@@ -104,7 +104,9 @@
   background-color: transparent;
   border: none;
   padding: 0;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .Assets .Assets-buttons .Assets-buttons-left .icon-item:hover {

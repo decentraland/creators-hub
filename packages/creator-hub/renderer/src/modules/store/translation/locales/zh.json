@@ -50,6 +50,7 @@
     "header": {
       "actions": {
         "code": "代码",
+        "optimize": "优化",
         "preview": "预览",
         "optimizing": "优化中",
         "cancel_optimizing": "取消优化",
@@ -69,11 +70,12 @@
           "landscape_terrain_disabled_by_scene": "此场景的设置已隐藏景观地形",
           "multi_instance": "多实例预览",
           "mcp": "启用 MCP 服务器",
-          "optimized_assets": "优化资源",
-          "optimized_assets_tooltip": "使用优化后的资源预览场景，与生产环境的渲染效果一致",
+          "optimized_assets": "压缩",
+          "optimized_assets_tooltip": "使用与生产环境相同方式压缩后的资源预览场景",
           "mobile_preview": "显示移动端二维码"
         },
         "publish_options": {
+          "title": "发布选项",
           "publish_scene": "发布场景",
           "republish_to_world": "重新发布到 {name}",
           "republish_to_land": "重新发布到 {coords}"
@@ -172,6 +174,102 @@
     "badges": {
       "published": "已发布"
     }
+  },
+  "optimize": {
+    "title": "优化模型",
+    "subtitle": "通过压缩和去重纹理以及清理网格来缩减场景 GLB 的体积。原始文件会被备份，方便随时还原。",
+    "docs_link": "了解每个选项的作用",
+    "consent": {
+      "blurb": "优化完全在你的电脑上运行，使用开源工具。首次继续时会从 npm 下载这些工具（固定版本），并保存在应用数据文件夹中。你的模型不会离开你的电脑。",
+      "show_tools": "查看这 {count} 个开源工具",
+      "hide_tools": "收起工具列表",
+      "dont_show_again": "不再显示",
+      "npm": "npm",
+      "source": "源码",
+      "note": "你的原始模型会被备份，可随时还原。",
+      "download": "现在将下载约 {size} MB。",
+      "continue": "继续",
+      "cancel": "取消",
+      "purpose": {
+        "sharp": "调整尺寸、重新编码并无损压缩纹理。",
+        "gltf": "读取和写入 GLB；执行网格清理。",
+        "meshopt": "网格重排以及 Meshopt 编解码器。"
+      }
+    },
+    "tools": {
+      "installing_blurb": "正在准备优化工具，只需一次。",
+      "installing": "正在下载优化工具…",
+      "failed": "无法下载优化工具：{message}",
+      "retry": "重试"
+    },
+    "select_project": "选择一个场景",
+    "no_projects": "未找到场景。请先创建或导入一个场景。",
+    "scan": {
+      "glbs": "{count} 个模型",
+      "size": "总大小：{size}（模型 {models} + 纹理 {textures}）",
+      "textures": "{embedded} 个内嵌纹理 · {external} 个外部纹理",
+      "last_optimized": "已于 {date} 优化 · 可还原为原始文件",
+      "empty": "该场景没有可优化的 GLB 模型。"
+    },
+    "options": {
+      "title": "优化项",
+      "mesh": {
+        "title": "网格",
+        "enabled": "优化网格（焊接、重排、清理）",
+        "enabled_tip": "无损清理：合并重复顶点（焊接）、为 GPU 缓存效率重排索引、移除未使用或重复的数据，并将纯色纹理折叠为材质颜色。输出可在所有运行时加载。"
+      },
+      "textures": {
+        "title": "纹理",
+        "compress": "压缩并缩放纹理",
+        "compress_tip": "将每个纹理缩放到其按类型的最大尺寸并重新编码。PNG 采用无损重新压缩；JPEG/WebP 使用“质量”滑块。",
+        "dedup": "移除重复纹理",
+        "dedup_tip": "查找像素完全相同的纹理（SHA-256），让所有模型指向单一共享副本。当同一纹理在多个模型中重复使用时收益最大。",
+        "externalize": "将内嵌纹理提取为文件",
+        "externalize_tip": "将纹理从 GLB 中提取到 assets/optimized-textures/ 下的共享文件，使共享纹理只下载一次而非每个模型各下载一次。跨模型去重的前提；这些文件会随场景一起部署。",
+        "format": "格式",
+        "format_tip": "输出图像格式。PNG 无损（推荐）。JPEG 和 WebP 更小但有损，并使用“质量”滑块。",
+        "quality": "质量",
+        "quality_tip": "JPEG/WebP 的编码质量（1–100）。越高保留越多细节，文件越大。对 PNG 无效。",
+        "denoise": "降噪",
+        "sizes": "纹理最大尺寸（像素）",
+        "sizes_tip": "每种纹理类型的最大高度（像素）；更大的会按比例缩小。基础色和法线贴图通常比 ORM 或自发光需要更高分辨率。",
+        "baseColor": "基础色",
+        "normal": "法线",
+        "orm": "ORM",
+        "emissive": "自发光",
+        "other": "其他"
+      }
+    },
+    "run": "优化",
+    "run_again": "再次优化",
+    "done": "完成",
+    "running": "优化中…",
+    "revert": "还原为原始文件",
+    "reverting": "正在还原原始文件…",
+    "revert_error": "无法还原原始文件：{message}",
+    "result": {
+      "title": "完成",
+      "saved": "节省了 {saved}（{percent}%）",
+      "before_after": "{before} → {after}（模型 + 纹理）",
+      "glbs_changed": "更新了 {count} 个模型",
+      "textures_extracted": "提取了 {count} 个纹理",
+      "textures_deduped": "移除了 {count} 个重复项",
+      "textures_removed": "已移除 {count} 个被替代的纹理（{bytes}）",
+      "unchanged_skipped": "{unchanged} 个未更改 · {skipped} 个已跳过",
+      "failed": "{count} 个模型失败 — 请查看每个模型的详情",
+      "ignored_files": "{count} 个提取的纹理匹配 .dclignore 中的模式，将不会被部署 — 请修改该模式，否则模型加载时会缺少这些纹理：{files}",
+      "up_to_date": "{count} 个已优化，保持原样",
+      "show_details": "查看每个模型的详情",
+      "hide_details": "收起每个模型的详情",
+      "status": {
+        "optimized": "已优化",
+        "unchanged": "无变化",
+        "skipped": "已跳过",
+        "up_to_date": "已优化",
+        "failed": "失败"
+      }
+    },
+    "error": "优化失败：{message}"
   },
   "navbar": {
     "menu": {

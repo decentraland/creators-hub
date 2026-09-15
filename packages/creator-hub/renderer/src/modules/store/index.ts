@@ -23,6 +23,7 @@ import * as featureFlags from './featureFlags';
 import * as management from './management';
 import * as placeAnalytics from './placeAnalytics';
 import * as profiles from './profiles';
+import * as optimizer from './optimizer';
 
 export function createRootReducer() {
   return {
@@ -41,6 +42,7 @@ export function createRootReducer() {
     management: management.reducer,
     placeAnalytics: placeAnalytics.reducer,
     profiles: profiles.reducer,
+    optimizer: optimizer.reducer,
   };
 }
 

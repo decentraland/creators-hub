@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react';
 import { MdImageSearch } from 'react-icons/md';
+import { FaBroom } from 'react-icons/fa';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { HiOutlineRefresh as RefreshIcon } from 'react-icons/hi';
 import { IoIosFolderOpen, IoIosUndo } from 'react-icons/io';
@@ -185,6 +186,16 @@ function Assets({ isAssetsPanelCollapsed }: { isAssetsPanelCollapsed: boolean })
     }
   }, [tab]);
 
+  const handleOptimizeClick = useCallback(() => {
+    // The optimizer runs in the Creator Hub main process (it needs the native
+    // texture toolchain); the inspector only asks the host to open its modal.
+    // A host that does not implement the method (the standalone inspector) rejects, which is
+    // nothing to surface — but leaving it floating makes it an unhandled rejection.
+    void getSceneClient()
+      ?.optimizeScene()
+      .catch(error => console.warn('The host does not support optimize_scene:', error));
+  }, []);
+
   const handleRecoverAssets = useCallback(async () => {
     if (removedAssets.length === 0) return;
 
@@ -213,6 +224,11 @@ function Assets({ isAssetsPanelCollapsed }: { isAssetsPanelCollapsed: boolean })
   }, [removedAssets, dispatch, pushNotification]);
 
   const showCleanAssetsButton = useMemo(() => tab === AssetsTab.FileSystem, [tab]);
+  // Only inside the Creator Hub (host bridge present) — the optimizer runs in CH main.
+  const showOptimizeButton = useMemo(
+    () => tab === AssetsTab.FileSystem && !!config.dataLayerRpcParentUrl,
+    [tab, config.dataLayerRpcParentUrl],
+  );
   const showRecoverAssetsButton = useMemo(
     () => tab === AssetsTab.FileSystem && hasRecoverableFiles,
     [tab, hasRecoverableFiles],
@@ -275,6 +291,22 @@ function Assets({ isAssetsPanelCollapsed }: { isAssetsPanelCollapsed: boolean })
                     onClick={handleCleanAssetsClick}
                   >
                     <CleanupIcon />
+                  </button>
+                }
+                openOnTriggerMouseEnter={true}
+                closeOnTriggerClick={true}
+                position="top center"
+              />
+            )}
+            {showOptimizeButton && (
+              <InfoTooltip
+                text="Optimize models"
+                trigger={
+                  <button
+                    className="icon-item"
+                    onClick={handleOptimizeClick}
+                  >
+                    <FaBroom />
                   </button>
                 }
                 openOnTriggerMouseEnter={true}

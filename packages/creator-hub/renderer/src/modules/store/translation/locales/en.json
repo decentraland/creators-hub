@@ -50,6 +50,7 @@
     "header": {
       "actions": {
         "code": "Code",
+        "optimize": "Optimize",
         "preview": "Preview",
         "optimizing": "Optimizing",
         "cancel_optimizing": "Cancel optimization",
@@ -69,11 +70,12 @@
           "landscape_terrain_disabled_by_scene": "Landscape terrain is hidden by this scene's settings",
           "multi_instance": "Multi-Instance Preview",
           "mcp": "Enable MCP Server",
-          "optimized_assets": "Optimize Assets",
-          "optimized_assets_tooltip": "Preview the scene with optimized assets, matching how it renders in production",
+          "optimized_assets": "Compress",
+          "optimized_assets_tooltip": "Preview the scene with assets compressed the same way they are in production",
           "mobile_preview": "Show QR Code for Mobile"
         },
         "publish_options": {
+          "title": "Publish Options",
           "publish_scene": "Publish Scene",
           "republish_to_world": "Republish to {name}",
           "republish_to_land": "Republish to {coords}"
@@ -173,6 +175,102 @@
     "badges": {
       "published": "Published"
     }
+  },
+  "optimize": {
+    "title": "Optimize models",
+    "subtitle": "Shrink your scene's GLBs by compressing and deduplicating textures and cleaning up meshes. Originals are backed up so you can revert.",
+    "docs_link": "How each option works",
+    "consent": {
+      "blurb": "Optimizing runs entirely on your machine with open-source tools. They are downloaded from npm the first time you continue, pinned to fixed versions, and kept in the app's data folder. Your models never leave your computer.",
+      "show_tools": "Show the {count} open-source tools",
+      "hide_tools": "Hide the tool list",
+      "dont_show_again": "Don't show this again",
+      "npm": "npm",
+      "source": "Source",
+      "note": "Your original models are backed up and can be reverted at any time.",
+      "download": "About {size} MB will be downloaded now.",
+      "continue": "Continue",
+      "cancel": "Cancel",
+      "purpose": {
+        "sharp": "Resizes, re-encodes and losslessly compresses textures.",
+        "gltf": "Reads and writes GLBs; runs the mesh cleanup.",
+        "meshopt": "Mesh reorder and the Meshopt codec."
+      }
+    },
+    "tools": {
+      "installing_blurb": "Getting the optimizer tools ready. This happens once.",
+      "installing": "Downloading optimizer tools…",
+      "failed": "Could not download the optimizer tools: {message}",
+      "retry": "Retry"
+    },
+    "select_project": "Select a scene",
+    "no_projects": "No scenes found. Create or import a scene first.",
+    "scan": {
+      "glbs": "{count} models",
+      "size": "Total size: {size} (models {models} + textures {textures})",
+      "textures": "{embedded} embedded textures · {external} external textures",
+      "last_optimized": "Optimized on {date} · you can revert to the originals",
+      "empty": "This scene has no GLB models to optimize."
+    },
+    "options": {
+      "title": "Optimizations",
+      "mesh": {
+        "title": "Meshes",
+        "enabled": "Optimize meshes (weld, reorder, clean up)",
+        "enabled_tip": "Lossless cleanup: merges duplicate vertices (weld), reorders indices for GPU cache efficiency, removes unused/duplicate data, and folds flat-color textures into material colors. Output loads in every runtime."
+      },
+      "textures": {
+        "title": "Textures",
+        "compress": "Compress and resize textures",
+        "compress_tip": "Resizes each texture to its per-type max size and re-encodes it. PNG is recompressed losslessly (no quality loss); JPEG/WebP use the Quality slider.",
+        "dedup": "Remove duplicate textures",
+        "dedup_tip": "Finds textures with identical pixels (SHA-256) and points every model at a single shared copy. Biggest win when the same texture is reused across many models.",
+        "externalize": "Extract embedded textures to files",
+        "externalize_tip": "Pulls textures out of the GLB into shared files under assets/optimized-textures/, so a shared texture downloads once instead of per-model. Required for cross-model dedup; these files deploy with your scene.",
+        "format": "Format",
+        "format_tip": "Output image format. PNG is lossless (recommended). JPEG and WebP are smaller but lossy and use the Quality slider.",
+        "quality": "Quality",
+        "quality_tip": "Encoding quality for JPEG/WebP (1–100). Higher keeps more detail at a larger file size. Ignored for PNG.",
+        "denoise": "Denoise",
+        "sizes": "Max texture sizes (px)",
+        "sizes_tip": "Maximum height in pixels per texture type; anything taller is downscaled proportionally. Base color and normal maps usually need more resolution than ORM or emissive.",
+        "baseColor": "Base color",
+        "normal": "Normal",
+        "orm": "ORM",
+        "emissive": "Emissive",
+        "other": "Other"
+      }
+    },
+    "run": "Optimize",
+    "run_again": "Optimize again",
+    "done": "Done",
+    "running": "Optimizing…",
+    "revert": "Revert to originals",
+    "reverting": "Restoring originals…",
+    "revert_error": "Could not restore the originals: {message}",
+    "result": {
+      "title": "Done",
+      "saved": "Saved {saved} ({percent}%)",
+      "before_after": "{before} → {after} (models + textures)",
+      "glbs_changed": "{count} models updated",
+      "textures_extracted": "{count} textures extracted",
+      "textures_deduped": "{count} duplicates removed",
+      "textures_removed": "{count} superseded textures removed ({bytes})",
+      "unchanged_skipped": "{unchanged} unchanged · {skipped} skipped",
+      "failed": "{count} models failed — see the per-model details",
+      "ignored_files": "{count} extracted textures match a pattern in your .dclignore and will NOT deploy — edit the pattern or the model will load without them: {files}",
+      "up_to_date": "{count} already optimized, left as they were",
+      "show_details": "Show per-model details",
+      "hide_details": "Hide per-model details",
+      "status": {
+        "optimized": "optimized",
+        "unchanged": "no change",
+        "skipped": "skipped",
+        "up_to_date": "already optimized",
+        "failed": "failed"
+      }
+    },
+    "error": "Optimization failed: {message}"
   },
   "navbar": {
     "menu": {
